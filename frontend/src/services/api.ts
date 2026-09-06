@@ -31,12 +31,12 @@ const normalizeHost = (h: string): string => {
 
 const getApiBase = () => {
   if (isElectron()) {
-    const savedUrl = localStorage.getItem('geoshield_server_url');
+    const savedUrl = localStorage.getItem('ECO-RISK_server_url');
     if (savedUrl) return `http://${normalizeHost(savedUrl)}/api`;
     return 'http://localhost:8000/api';
   }
   if (isMobile()) {
-    const savedUrl = localStorage.getItem('geoshield_server_url');
+    const savedUrl = localStorage.getItem('ECO-RISK_server_url');
     if (savedUrl) return `http://${normalizeHost(savedUrl)}/api`;
     // Default to localhost — works with adb reverse for USB-connected devices
     return 'http://localhost:8000/api';
@@ -57,18 +57,18 @@ api.interceptors.request.use((config) => {
 
 // Allow mobile app to change server URL
 export const setServerUrl = (url: string) => {
-  localStorage.setItem('geoshield_server_url', url);
+  localStorage.setItem('ECO-RISK_server_url', url);
   window.location.reload();
 };
 
 export const getServerUrl = () => {
-  return localStorage.getItem('geoshield_server_url') || '';
+  return localStorage.getItem('ECO-RISK_server_url') || '';
 };
 
 export const isMobileApp = isMobile;
 
 // --- JWT token management ---
-const TOKEN_KEY = 'geoshield_token';
+const TOKEN_KEY = 'ECO-RISK_token';
 
 export function getStoredToken(): string | null {
   return localStorage.getItem(TOKEN_KEY);
@@ -442,3 +442,4 @@ export const trainMLModel = () => api.post<{ message: string; details: any }>('/
 
 export default api;
 export { api };
+

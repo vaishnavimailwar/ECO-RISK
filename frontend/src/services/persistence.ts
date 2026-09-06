@@ -115,3 +115,4 @@ export function clearProjectSession(): void {
         // Ignore unavailable storage; resetting React state still clears the active session.
     }
 }
+

@@ -56,3 +56,4 @@ export async function saveDecision(projectId: number, summary: DecisionSupportSu
         body: JSON.stringify({ recommended_site_id: summary.recommended ? siteIds[summary.recommended.site.id] : null, recommended_site_label: summary.recommended?.site.label, overall_score: summary.recommended?.overallScore, decision_data: summary, confidence_status: summary.confidence, assessment_completeness: summary.averageInventoryCompletion }),
     });
 }
+
