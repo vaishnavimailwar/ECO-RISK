@@ -36,3 +36,4 @@ export async function searchLocation(query: string, signal?: AbortSignal): Promi
         }))
         .filter((result) => Number.isFinite(result.latitude) && Number.isFinite(result.longitude));
 }
+

@@ -50,3 +50,4 @@ export const CATEGORY_WEIGHTS: Record<AssessmentCategory, number> = {
     naturalResources: 0.25,
     socioEconomic: 0.20,
 };
+

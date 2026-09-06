@@ -72,3 +72,4 @@ export default function CoordinateSearch({ onLocationFound }: CoordinateSearchPr
         </form>
     );
 }
+

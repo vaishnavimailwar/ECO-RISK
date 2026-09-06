@@ -85,3 +85,4 @@ export function calculateDecisionSupport(sites: AssessmentSite[], assessmentData
     const confidence = getConfidence(averageInventoryCompletion, averageMethodologyCompletion, mcdaReadiness);
     return { results, recommended, averageInventoryCompletion, averageMethodologyCompletion, mcdaReadiness, confidence, categories, reasons: getReasons(recommended, results), concerns: recommended ? getConcerns(recommended, assessmentData[recommended.site.id], methodologyData[recommended.site.id]) : [] };
 }
+

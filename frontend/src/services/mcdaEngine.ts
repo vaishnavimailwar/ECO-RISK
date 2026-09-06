@@ -59,3 +59,4 @@ export function calculateRankedMCDA(sites: AssessmentSite[], assessmentData: Ass
 export function formatCategoryLabel(category: keyof typeof CATEGORY_LABELS) {
     return CATEGORY_LABELS[category];
 }
+

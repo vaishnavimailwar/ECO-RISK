@@ -24,3 +24,4 @@ export default function AssessmentParameter({ parameter, value, onChange }: Asse
         </div>
     );
 }
+

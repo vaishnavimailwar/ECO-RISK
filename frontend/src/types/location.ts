@@ -27,3 +27,4 @@ export function isWithinIndiaFocus(latitude: number, longitude: number) {
         && longitude >= INDIA_BOUNDS.minLongitude
         && longitude <= INDIA_BOUNDS.maxLongitude;
 }
+

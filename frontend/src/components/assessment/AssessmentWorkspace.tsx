@@ -48,3 +48,4 @@ export default function AssessmentWorkspace({ sites, assessmentData, onAssessmen
         </div>
     );
 }
+

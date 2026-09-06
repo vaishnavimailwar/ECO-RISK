@@ -56,3 +56,4 @@ export function countMatrixEntries(matrix: MatrixData) {
 export function countInventoryEntries(assessment: AssessmentData[string]) {
     return Object.values(assessment).reduce((total, category) => total + Object.values(category).filter(Boolean).length, 0);
 }
+

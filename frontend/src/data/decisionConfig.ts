@@ -11,3 +11,4 @@ export const METHODOLOGY_COMPLETION_WEIGHTS = {
 };
 
 export const MATRIX_ENTRY_TOTAL = 20;
+

@@ -56,7 +56,7 @@ const allKeys = [
   // More StationDetail
   'rainfallHistory', 'soilMoistureDisplacement', 'weatherTitle',
   // App login
-  'signInToECO-RISK', 'demoLoginHint', 'adminRole', 'fieldOfficerRole', 'districtAdminRole', 'citizenRole',
+  'signInToEcoRisk', 'demoLoginHint', 'adminRole', 'fieldOfficerRole', 'districtAdminRole', 'citizenRole',
   'totalReports', 'pendingReview', 'verified', 'allLevels',
   'enterCredentials', 'satellite',
   // FloodData
@@ -313,7 +313,7 @@ export const translations: Record<Language, Record<string, string>> = {
     rainfallHistory: 'Rainfall History',
     soilMoistureDisplacement: 'Soil Moisture & Ground Displacement',
     weatherTitle: 'Weather',
-    signInToECO-RISK: 'Sign In to ECO-RISK',
+    signInToEcoRisk: 'Sign In to ECO-RISK',
     demoLoginHint: 'Demo: Click a button below to auto-fill credentials',
     adminRole: 'Admin',
     fieldOfficerRole: 'Field Officer',
@@ -659,7 +659,7 @@ export const translations: Record<Language, Record<string, string>> = {
     soilMoistureDisplacement: 'मिट्टी की नमी और भूमि विस्थापन',
     weatherTitle: 'मौसम',
     // App login
-    signInToECO-RISK: 'ECO-RISK में साइन इन करें',
+    signInToEcoRisk: 'ECO-RISK में साइन इन करें',
     demoLoginHint: 'डेमो: लॉगिन के लिए कोई भी ईमेल और पासवर्ड दर्ज करें',
     adminRole: 'एडमिन',
     fieldOfficerRole: 'फील्ड अधिकारी',
@@ -1000,7 +1000,7 @@ export const translations: Record<Language, Record<string, string>> = {
     soilMoistureDisplacement: 'মাটির আর্দ্রতা ও ভূমি সরণ',
     weatherTitle: 'আবহাওয়া',
     // App login
-    signInToECO-RISK: 'ECO-RISK-এ সাইন ইন করুন',
+    signInToEcoRisk: 'ECO-RISK-এ সাইন ইন করুন',
     demoLoginHint: 'ডেমো: লগইনের জন্য যেকোনো ইমেইল ও পাসওয়ার্ড লিখুন',
     adminRole: 'অ্যাডমিন',
     fieldOfficerRole: 'ফিল্ড অফিসার',
@@ -1341,7 +1341,7 @@ export const translations: Record<Language, Record<string, string>> = {
     soilMoistureDisplacement: 'মাটিৰ আৰ্দ্ৰতা আৰু ভূমি স্থানান্তৰ',
     weatherTitle: 'আবহাওয়া',
     // App login
-    signInToECO-RISK: 'ECO-RISK-ত ছাইন ইন কৰক',
+    signInToEcoRisk: 'ECO-RISK-ত ছাইন ইন কৰক',
     demoLoginHint: 'ডেমো: লগইনৰ বাবে যিকোনো ইমেইল আৰু পাছৱৰ্ড লিখক',
     adminRole: 'এডমিন',
     fieldOfficerRole: 'ফিল্ড অফিছাৰ',
@@ -1587,5 +1587,6 @@ export function getCurrentLanguage(): Language {
 export function t(key: string): string {
   return translations[currentLanguage]?.[key] || translations.en[key] || key;
 }
+
 
 

@@ -19,3 +19,4 @@ export default function MethodologyNavigation({ activeTab, onChange }: Methodolo
         </nav>
     );
 }
+

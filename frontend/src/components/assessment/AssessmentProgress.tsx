@@ -46,3 +46,4 @@ export default function AssessmentProgress({ site, assessment, onBack, onSiteCha
         </div>
     );
 }
+

@@ -98,3 +98,4 @@ export function createAssessmentData(sites: AssessmentSite[]): AssessmentData {
         return data;
     }, {} as AssessmentData);
 }
+

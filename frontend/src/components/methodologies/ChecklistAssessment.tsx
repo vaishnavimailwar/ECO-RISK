@@ -20,3 +20,4 @@ export default function ChecklistAssessment({ site, assessment }: ChecklistAsses
         </section>
     );
 }
+

@@ -34,3 +34,4 @@ export const CATEGORY_LABELS: Record<AssessmentCategory, string> = {
 export function getParameterWeight(parameterId: string) {
     return DEFAULT_PARAMETER_WEIGHTS.find((config) => config.parameterId === parameterId);
 }
+

@@ -76,3 +76,4 @@ export default function GisMap({ selectedLocation, currentLocation, sites }: Gis
         </div>
     );
 }
+

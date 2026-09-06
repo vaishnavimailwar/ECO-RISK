@@ -39,3 +39,4 @@ export default function AssessmentBar({ sites, onAnalyze, message }: AssessmentB
         </section>
     );
 }
+
