@@ -15,7 +15,7 @@ from starlette.responses import FileResponse
 from app.middleware.rate_limiter import RateLimiter
 
 from app.database import engine, Base, SessionLocal
-from app.routers import sensors, dashboard, alerts, reports, weather, simulator, satellite, predict, alerts_timeline, flood, ml_enhanced
+from app.routers import sensors, dashboard, alerts, reports, weather, simulator, satellite, predict, alerts_timeline, flood, ml_enhanced, assessments
 from app.auth import authenticate_user, create_token
 
 
@@ -114,8 +114,8 @@ init_database()
 FRONTEND_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "frontend", "dist"))
 
 app = FastAPI(
-    title="GeoShield API",
-    description="AI-Based Early Warning and Landslide Risk Monitoring System for NER",
+    title="ECO-RISK API",
+    description="Environmental Impact Assessment and Multi-Criteria Decision Support System",
     version="1.0.0",
 )
 
@@ -139,6 +139,7 @@ app.include_router(predict.router)
 app.include_router(alerts_timeline.router)
 app.include_router(flood.router)
 app.include_router(ml_enhanced.router)
+app.include_router(assessments.router)
 
 
 @app.get("/health", response_class=JSONResponse)

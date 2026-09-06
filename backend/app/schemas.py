@@ -3,7 +3,7 @@ Pydantic schemas for GeoShield API request/response validation.
 Prevents invalid data from reaching the database layer.
 """
 from pydantic import BaseModel, Field, field_validator
-from typing import Optional, List
+from typing import Optional, List, Dict, Any
 from enum import Enum
 
 
@@ -110,3 +110,91 @@ class SimulateResponse(BaseModel):
 class ErrorResponse(BaseModel):
     detail: str
     status_code: int
+
+
+# ── ECO-RISK assessment persistence ──────────────────────────
+class AssessmentProjectCreate(BaseModel):
+    project_name: str = Field(..., min_length=1, max_length=200)
+    description: Optional[str] = Field(None, max_length=5000)
+
+
+class AssessmentProjectUpdate(BaseModel):
+    project_name: Optional[str] = Field(None, min_length=1, max_length=200)
+    description: Optional[str] = Field(None, max_length=5000)
+
+
+class AssessmentSiteCreate(BaseModel):
+    site_label: str = Field(..., min_length=1, max_length=50)
+    location_name: str = Field(..., min_length=1, max_length=300)
+    latitude: float = Field(..., ge=-90, le=90)
+    longitude: float = Field(..., ge=-180, le=180)
+    address: Optional[str] = Field(None, max_length=2000)
+
+
+class AssessmentSiteUpdate(BaseModel):
+    site_label: Optional[str] = Field(None, min_length=1, max_length=50)
+    location_name: Optional[str] = Field(None, min_length=1, max_length=300)
+    latitude: Optional[float] = Field(None, ge=-90, le=90)
+    longitude: Optional[float] = Field(None, ge=-180, le=180)
+    address: Optional[str] = Field(None, max_length=2000)
+
+
+class AssessmentProjectResponse(BaseModel):
+    id: int
+    project_name: str
+    description: Optional[str]
+    created_at: Any
+    updated_at: Any
+
+    class Config:
+        from_attributes = True
+
+
+class AssessmentSiteResponse(BaseModel):
+    id: int
+    project_id: int
+    site_label: str
+    location_name: str
+    latitude: float
+    longitude: float
+    address: Optional[str]
+    created_at: Any
+    updated_at: Any
+
+    class Config:
+        from_attributes = True
+
+
+class AssessmentProjectDetail(AssessmentProjectResponse):
+    sites: List[AssessmentSiteResponse] = []
+
+
+class InventoryPayload(BaseModel):
+    inventory_data: Dict[str, Any] = Field(default_factory=dict)
+
+
+class MethodologyPayload(BaseModel):
+    checklist_data: Dict[str, Any] = Field(default_factory=dict)
+    impact_matrix_data: Dict[str, Any] = Field(default_factory=dict)
+    ad_hoc_observations: List[Dict[str, Any]] = Field(default_factory=list)
+
+
+class MCDAResultPayload(BaseModel):
+    site_id: int
+    overall_score: Optional[float] = Field(None, ge=0, le=100)
+    rank: Optional[int] = Field(None, ge=1)
+    category_scores: Dict[str, Any] = Field(default_factory=dict)
+    calculation_metadata: Dict[str, Any] = Field(default_factory=dict)
+
+
+class MCDAResultsPayload(BaseModel):
+    results: List[MCDAResultPayload] = Field(default_factory=list)
+
+
+class DecisionSupportPayload(BaseModel):
+    recommended_site_id: Optional[int] = None
+    recommended_site_label: Optional[str] = Field(None, max_length=50)
+    overall_score: Optional[float] = Field(None, ge=0, le=100)
+    decision_data: Dict[str, Any] = Field(default_factory=dict)
+    confidence_status: Optional[str] = Field(None, max_length=50)
+    assessment_completeness: Optional[float] = Field(None, ge=0, le=100)

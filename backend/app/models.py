@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Float, String, DateTime, Text, Boolean, Enum
+from sqlalchemy import Column, Integer, Float, String, DateTime, Text, Boolean, Enum, ForeignKey, JSON
 from sqlalchemy.sql import func
 from app.database import Base
 import enum
@@ -158,3 +158,80 @@ class Village(Base):
     nearest_hospital_km = Column(Float)
     nearest_police_km = Column(Float)
     evacuation_route = Column(Text, nullable=True)
+
+
+class AssessmentProject(Base):
+    __tablename__ = "assessment_projects"
+
+    id = Column(Integer, primary_key=True, index=True)
+    project_name = Column(String(200), nullable=False)
+    description = Column(Text, nullable=True)
+    created_at = Column(DateTime, server_default=func.now(), nullable=False)
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now(), nullable=False)
+
+
+class AssessmentSite(Base):
+    __tablename__ = "assessment_sites"
+
+    id = Column(Integer, primary_key=True, index=True)
+    project_id = Column(Integer, ForeignKey("assessment_projects.id", ondelete="CASCADE"), nullable=False, index=True)
+    site_label = Column(String(50), nullable=False)
+    location_name = Column(String(300), nullable=False)
+    latitude = Column(Float, nullable=False)
+    longitude = Column(Float, nullable=False)
+    address = Column(Text, nullable=True)
+    created_at = Column(DateTime, server_default=func.now(), nullable=False)
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now(), nullable=False)
+
+
+class EnvironmentalInventory(Base):
+    __tablename__ = "environmental_inventories"
+
+    id = Column(Integer, primary_key=True, index=True)
+    project_id = Column(Integer, ForeignKey("assessment_projects.id", ondelete="CASCADE"), nullable=False, index=True)
+    site_id = Column(Integer, ForeignKey("assessment_sites.id", ondelete="CASCADE"), nullable=False, unique=True, index=True)
+    inventory_data = Column(JSON, nullable=False, default=dict)
+    created_at = Column(DateTime, server_default=func.now(), nullable=False)
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now(), nullable=False)
+
+
+class MethodologyAssessment(Base):
+    __tablename__ = "methodology_assessments"
+
+    id = Column(Integer, primary_key=True, index=True)
+    project_id = Column(Integer, ForeignKey("assessment_projects.id", ondelete="CASCADE"), nullable=False, index=True)
+    site_id = Column(Integer, ForeignKey("assessment_sites.id", ondelete="CASCADE"), nullable=False, unique=True, index=True)
+    checklist_data = Column(JSON, nullable=False, default=dict)
+    impact_matrix_data = Column(JSON, nullable=False, default=dict)
+    ad_hoc_observations = Column(JSON, nullable=False, default=list)
+    created_at = Column(DateTime, server_default=func.now(), nullable=False)
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now(), nullable=False)
+
+
+class MCDAResult(Base):
+    __tablename__ = "mcda_results"
+
+    id = Column(Integer, primary_key=True, index=True)
+    project_id = Column(Integer, ForeignKey("assessment_projects.id", ondelete="CASCADE"), nullable=False, index=True)
+    site_id = Column(Integer, ForeignKey("assessment_sites.id", ondelete="CASCADE"), nullable=False, index=True)
+    overall_score = Column(Float, nullable=True)
+    rank = Column(Integer, nullable=True)
+    category_scores = Column(JSON, nullable=False, default=dict)
+    calculation_metadata = Column(JSON, nullable=False, default=dict)
+    created_at = Column(DateTime, server_default=func.now(), nullable=False)
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now(), nullable=False)
+
+
+class DecisionSupportResult(Base):
+    __tablename__ = "decision_support_results"
+
+    id = Column(Integer, primary_key=True, index=True)
+    project_id = Column(Integer, ForeignKey("assessment_projects.id", ondelete="CASCADE"), nullable=False, unique=True, index=True)
+    recommended_site_id = Column(Integer, ForeignKey("assessment_sites.id", ondelete="SET NULL"), nullable=True)
+    recommended_site_label = Column(String(50), nullable=True)
+    overall_score = Column(Float, nullable=True)
+    decision_data = Column(JSON, nullable=False, default=dict)
+    confidence_status = Column(String(50), nullable=True)
+    assessment_completeness = Column(Float, nullable=True)
+    created_at = Column(DateTime, server_default=func.now(), nullable=False)
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now(), nullable=False)
